@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Card, Vote, Content, Title } from "./styles";
-const Medium = ({ setVotado }) => {
+const Small = ({ setVotado }) => {
   var res = [
     {
       nome: "ALESSANDRA CATIA VOLPI ME",
@@ -18,9 +18,10 @@ const Medium = ({ setVotado }) => {
       cnpj: "202020"
     }
   ];
+
   return (
     <Container>
-      <Title>Medio</Title>
+      <Title>Pequeno</Title>
       {res.map((item, i) => (
         <Card key={i}>
           <Content>{item.nome}</Content>
@@ -33,4 +34,4 @@ const Medium = ({ setVotado }) => {
   );
 };
 
-export default Medium;
+export default Small;

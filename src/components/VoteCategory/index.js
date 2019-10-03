@@ -1,10 +1,8 @@
 import React from "react";
 import { Container, Title, Header, Close } from "./styles";
-import Category1 from "./Category1/index";
-import Category2 from "./Category2/index";
-import Category3 from "./Category3/index";
+import Category from "./Category/index";
 
-const VoteCategory = ({ children, number }) => {
+const VoteCategory = ({ children, number, onConfirm, pegarVotados }) => {
   const categoryNumber = number;
   if (categoryNumber === 1)
     return (
@@ -13,7 +11,7 @@ const VoteCategory = ({ children, number }) => {
           <Title>CATEGORIA 1</Title>
           <Close>{children}</Close>
         </Header>
-        <Category1></Category1>
+        <Category onConfirm={onConfirm} pegarVotados={pegarVotados}></Category>
       </Container>
     );
   else if (categoryNumber === 2)
@@ -23,7 +21,7 @@ const VoteCategory = ({ children, number }) => {
           <Title>CATEGORIA 2</Title>
           <Close>{children}</Close>
         </Header>
-        <Category2></Category2>
+        <Category onConfirm={onConfirm}></Category>
       </Container>
     );
   else if (categoryNumber === 3)
@@ -33,7 +31,7 @@ const VoteCategory = ({ children, number }) => {
           <Title>CATEGORIA 3</Title>
           <Close>{children}</Close>
         </Header>
-        <Category3></Category3>
+        <Category onConfirm={onConfirm}></Category>
       </Container>
     );
   return null;

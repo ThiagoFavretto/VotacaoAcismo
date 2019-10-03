@@ -3,11 +3,12 @@ import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Smal from "../../Smal/index";
+import Small from "../../Small/index";
 import Medium from "../../Medium/index";
 import Big from "../../Big/index";
+import Confirme from "../../Confirme";
 
-const Category1 = () => {
+const Category1 = ({ onConfirm, pegarVotados }) => {
   var settings = {
     arrows: false,
     infinite: true,
@@ -17,9 +18,10 @@ const Category1 = () => {
   };
   return (
     <Slider {...settings}>
-      <Smal />
-      <Medium />
-      <Big />
+      <Small pegarVotados={pegarVotados} />
+      <Medium pegarVotados={pegarVotados} />
+      <Big pegarVotados={pegarVotados} />
+      <Confirme onConfirm={onConfirm} />
     </Slider>
   );
 };

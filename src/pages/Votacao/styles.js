@@ -1,12 +1,15 @@
 import styled from "styled-components";
+import background from "../../assets/background.png";
 
 export const Container = styled.div`
   width: 100%;
   height: 100%;
-  background: linear-gradient(to bottom left, #bdbdbd, #bdbdbd, #9c7aeb);
   display: flex;
   align-items: center;
   justify-content: center;
+  background-image: url(${background});
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
 `;
 
 export const CategoryContainer = styled.div`
@@ -30,7 +33,7 @@ export const Category = styled.div`
 export const ShowCategory = styled.div`
   width: 20px;
   height: 20px;
-  background: green;
+  background: #9c7aeb;
   margin-right: 10px;
   border-radius: 50%;
 `;

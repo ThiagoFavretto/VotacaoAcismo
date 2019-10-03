@@ -12,6 +12,15 @@ import VoteCategory from "../../components/VoteCategory/index";
 
 const Votacao = () => {
   const [number, setNumber] = useState(0);
+  const [votado, setVotado] = useState([]);
+
+  const listaVotados = obj => {
+    console.log(votado);
+    setVotado([...votado, obj]);
+  };
+  const handleSubmit = () => {
+    console.log(votado);
+  };
   return (
     <Container>
       <CategoryContainer>
@@ -41,7 +50,11 @@ const Votacao = () => {
         </Category>
       </CategoryContainer>
 
-      <VoteCategory number={number}>
+      <VoteCategory
+        number={number}
+        onConfirm={handleSubmit}
+        pegarVotados={listaVotados}
+      >
         <CloseVote onClick={() => setNumber(0)}>
           <IoIosClose size={50} />
         </CloseVote>

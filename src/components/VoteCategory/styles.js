@@ -6,17 +6,18 @@ const SlideBottom = keyframes`
 
 }
 100% {
-  top: 0;
+  top: 10%;
 }
 `;
 export const Container = styled.div`
-  height: 100%;
+  height: 90%;
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  background: blue;
+  background: #d9e1e3;
   animation: ${SlideBottom} 0.3s linear 0s;
+  border-radius: 20px 20px 0 0;
 `;
 export const Header = styled.div`
   display: flex;
