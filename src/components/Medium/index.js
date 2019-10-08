@@ -1,32 +1,28 @@
 import React from "react";
 import { Container, Card, Vote, Content, Title } from "./styles";
-const Medium = ({ setVotado }) => {
-  var res = [
-    {
-      nome: "ALESSANDRA CATIA VOLPI ME",
-      fantasia: "NATURALLE FARMACIA DE MANIPULACAO",
-      cnpj: "02.927.627/0001-18"
-    },
-    {
-      nome: "ALESSANDRA CATIA VOLPI ME",
-      fantasia: "NATURALLE FARMACIA DE MANIPULACAO",
-      cnpj: "02.927.627/0001-18"
-    },
-    {
-      nome: "ALESSANDRA CATIA VOLPI ME",
-      fantasia: "NATURALLE FARMACIA DE MANIPULACAO",
-      cnpj: "202020"
-    }
-  ];
+const Medium = ({ pegarVotados, data }) => {
+
   return (
     <Container>
-      <Title>Medio</Title>
-      {res.map((item, i) => (
+      <Title>Médio</Title>
+      {data.map((item, i) => (
         <Card key={i}>
-          <Content>{item.nome}</Content>
-          <Content>{item.fantasia}</Content>
-          <Content>{item.cnpj}</Content>
-          <Vote onClick={() => setVotado({ ...item })}>Votar</Vote>
+          <Content>{item.category.name}</Content>
+          <Content>{item.category.size}</Content>
+          <Content>{item.owner_name}</Content>
+          <Content>{item.company.social_name}</Content>
+          <Content>
+            {item.company.fantasy_name === item.company.social_name
+              ? null
+              : item.company.fantasy_name}
+          </Content>
+          <Vote
+            onClick={() =>
+              pegarVotados({ dados: item.company.cnpj, categoria: "Medium" })
+            }
+          >
+            Votar
+          </Vote>
         </Card>
       ))}
     </Container>

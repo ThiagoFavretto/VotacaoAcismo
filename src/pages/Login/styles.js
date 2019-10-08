@@ -29,7 +29,7 @@ export const FormCode = styled.form`
   bottom: 0;
 `;
 export const EnterCode = styled.input`
-  margin-top: 100px;
+  margin-top: 10px;
   border: 1px solid #ddd;
   height: 50px;
   font-size: 18px;
@@ -37,7 +37,6 @@ export const EnterCode = styled.input`
   color: #666;
   border-radius: 8px;
 `;
-
 
 export const ButtonCode = styled.button`
   height: 50px;

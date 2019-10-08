@@ -1,21 +1,36 @@
 import React, { useState } from "react";
 import { Container, EnterCode, FormCode, ButtonCode } from "./styles";
 
-const Login = () => {
-  const [code, setCode] = useState("");
+import api from "../../services/api";
 
-  const handleSubmit = e => {
+const Login = ({ history }) => {
+  const [nome, setNome] = useState("");
+  const [senha, setSenha] = useState("");
+
+  const handleSubmit = async e => {
     e.preventDefault();
-    console.log(code);
+
+    const res = await api.post("sessions", {
+      cnpj: nome,
+      password: senha
+    });
+
+    localStorage.setItem("token", "Bearer " + res.data.token);
+    history.push(`/votacao`);
   };
 
   return (
     <Container>
       <FormCode>
         <EnterCode
-          placeholder="Entre com o ceu CNPJ"
-          value={code}
-          onChange={e => setCode(e.target.value)}
+          placeholder="Usuario"
+          value={nome}
+          onChange={e => setNome(e.target.value)}
+        />
+        <EnterCode
+          placeholder="Senha"
+          value={senha}
+          onChange={e => setSenha(e.target.value)}
         />
         <ButtonCode type="submit" onClick={handleSubmit}>
           Comece a Votar
