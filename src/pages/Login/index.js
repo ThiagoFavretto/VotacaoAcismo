@@ -1,39 +1,66 @@
-import React, { useState } from "react";
-import { Container, EnterCode, FormCode, ButtonCode } from "./styles";
+import React, { useState } from 'react';
+import { Container, EnterCode, FormCode, ButtonCode, Error } from './styles';
 
-import api from "../../services/api";
+import api from '../../services/api';
 
 const Login = ({ history }) => {
-  const [nome, setNome] = useState("");
-  const [senha, setSenha] = useState("");
+  const [cnpj, setCnpj] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
   const handleSubmit = async e => {
     e.preventDefault();
 
-    const res = await api.post("sessions", {
-      cnpj: nome,
-      password: senha
-    });
+    if (!cnpj) {
+      return setError('O CNPJ não pode estar vazio');
+    }
 
-    localStorage.setItem("token", "Bearer " + res.data.token);
-    history.push(`/votacao`);
+    if (!password) {
+      return setError('A senha não pode estar vazia');
+    }
+
+    try {
+      const res = await api.post('sessions', {
+        cnpj,
+        password,
+      });
+
+      const { token } = res.data;
+
+      localStorage.setItem('token', token);
+
+      api.defaults.headers.authorization = `Bearer ${token}`;
+
+      history.push(`/votacao`);
+    } catch (e) {
+      console.log(e);
+      const { error } = e.response.data;
+      setError(error);
+    }
   };
 
   return (
     <Container>
       <FormCode>
         <EnterCode
-          placeholder="Usuario"
-          value={nome}
-          onChange={e => setNome(e.target.value)}
+          placeholder="CNPJ"
+          value={cnpj}
+          onChange={e => setCnpj(e.target.value)}
         />
         <EnterCode
           placeholder="Senha"
-          value={senha}
-          onChange={e => setSenha(e.target.value)}
+          type="password"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
         />
+
+        {error && (
+          <Error>
+            <p>{error}</p>
+          </Error>
+        )}
         <ButtonCode type="submit" onClick={handleSubmit}>
-          Comece a Votar
+          ENTRAR
         </ButtonCode>
       </FormCode>
     </Container>

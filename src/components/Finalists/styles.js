@@ -1,23 +1,33 @@
-import styled from "styled-components";
+import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
   height: 82vh;
   background: white;
   display: flex;
   flex-direction: column;
-  padding: 0 20px;
+  padding: 20px;
   overflow: auto;
 `;
 
 export const Card = styled.div`
   width: 100%;
-  height: 150px;
-  background: #d9e1e3;
+  background: #eee;
   padding: 20px;
-  margin-top: 8px;
-  margin-bottom: 8px;
   display: flex;
+  border-radius: 4px;
   flex-direction: column;
+  cursor: pointer;
+
+  & + div {
+    margin-top: 16px;
+  }
+
+  ${props =>
+    props.active &&
+    css`
+      background: green;
+      color: #fff;
+    `}
 `;
 
 export const Vote = styled.button`
@@ -32,7 +42,9 @@ export const Vote = styled.button`
 
 export const Content = styled.div`
   width: 100%;
-  height: 30px;
+  padding: 5px 0;
+  display: flex;
+  align-items: center;
 `;
 
 export const Title = styled.div`

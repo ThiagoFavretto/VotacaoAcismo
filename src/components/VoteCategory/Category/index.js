@@ -1,39 +1,55 @@
-import React from "react";
-// import {} from "./styles";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import Small from "../../Small/index";
-import Medium from "../../Medium/index";
-import Big from "../../Big/index";
-import Confirme from "../../Confirme";
+import React, { useMemo } from 'react';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import Finalists from '../../Finalists';
+import Confirme from '../../Confirme';
 
-const Category1 = ({ onConfirm, pegarVotados, category }) => {
-  var settings = {
+const Category = ({
+  onConfirm,
+  pegarVotados,
+  category,
+  setPorte,
+  votes,
+  categoryName,
+}) => {
+  const settings = {
     arrows: false,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
-    slidesToScroll: 1
+    slidesToScroll: 1,
+    beforeChange: (_, next) => setPorte(next),
   };
-  var big = [];
-  var medium = [];
-  var small = [];
+  const big = [];
+  const medium = [];
+  const small = [];
 
-  category.map(itens => {
+  const votesCategory = useMemo(() => {
+    return votes.filter(vote => vote.category.name === categoryName);
+  }, [categoryName, votes]);
+
+  category.forEach(itens => {
     const { size } = itens.category;
-    if (size === "Grande") big.push(itens);
-    if (size === "Médio") medium.push(itens);
-    if (size === "Pequeno") small.push(itens);
+    if (size === 'Grande Porte') big.push(itens);
+    if (size === 'Médio Porte') medium.push(itens);
+    if (size === 'Pequeno Porte') small.push(itens);
   });
+
   return (
     <Slider {...settings}>
-      <Small pegarVotados={pegarVotados} data={small} />
-      <Medium pegarVotados={pegarVotados} data={medium} />
-      <Big pegarVotados={pegarVotados} data={big} />
-      <Confirme onConfirm={onConfirm} />
+      <Finalists pegarVotados={pegarVotados} data={small} votes={votes} />
+      <Finalists pegarVotados={pegarVotados} data={medium} votes={votes} />
+      <Finalists pegarVotados={pegarVotados} data={big} votes={votes} />
+      {votesCategory.length === 3 && (
+        <Confirme
+          onConfirm={onConfirm}
+          votes={votes}
+          votesCategory={votesCategory}
+        />
+      )}
     </Slider>
   );
 };
 
-export default Category1;
+export default Category;

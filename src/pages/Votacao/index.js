@@ -1,51 +1,81 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
+import { IoIosClose } from 'react-icons/io';
 import {
   Container,
   Category,
   CategoryContainer,
   ShowCategory,
-  CloseVote
-} from "./styles";
+  CloseVote,
+} from './styles';
 
-import api from "../../services/api";
+import api from '../../services/api';
 
-import { IoIosClose } from "react-icons/io";
-import VoteCategory from "../../components/VoteCategory/index";
+import VoteCategory from '../../components/VoteCategory/index';
 
 const Votacao = () => {
-  var comercio = [];
-  var industria = [];
-  var prestacaoDeServico = [];
+  const comercio = [];
+  const industria = [];
+  const prestacaoDeServico = [];
   const [number, setNumber] = useState(0);
   const [category, setCategory] = useState([]);
-  // const [votos, setVotos] = useState([]); 
-  const votado = [];
+  const [votes, setVotes] = useState([]);
 
   useEffect(() => {
-    (async function listar() {
-      const token = localStorage.getItem("token");
+    const votes = localStorage.getItem('votes');
 
-      const res = await api.get("finalists", {
-        headers: { Authorization: token }
-      });
+    if (votes) {
+      setVotes(JSON.parse(votes));
+    }
+  }, []);
 
-      res.data.finalists.map(itens => {
+  useEffect(() => {
+    localStorage.setItem('votes', JSON.stringify(votes));
+  }, [votes]);
+
+  useEffect(() => {
+    const listar = async () => {
+      const res = await api.get('finalists');
+
+      const { finalists } = res.data;
+
+      finalists.forEach(itens => {
         const { name } = itens.category;
-        if (name === "Comércio") comercio.push(itens);
-        if (name === "Indústria") industria.push(itens);
-        if (name === "Prestação de Serviço") prestacaoDeServico.push(itens);
+        if (name === 'Comércio') comercio.push(itens);
+        if (name === 'Indústria') industria.push(itens);
+        if (name === 'Prestação de Serviço') prestacaoDeServico.push(itens);
       });
-    })();
-  }, [number]);
+    };
 
-  const listaVotados = obj => {
-    if (obj.categoria === "Big") votado[0] = obj.dados;
-    if (obj.categoria === "Medium") votado[1] = obj.dados;
-    if (obj.categoria === "Small") votado[2] = obj.dados;
+    listar();
+  }, [comercio, industria, number, prestacaoDeServico]);
+
+  const listaVotados = ({ finalist }) => {
+    const vote = votes.find(
+      ({ category }) =>
+        category.size === finalist.category.size &&
+        category.name === finalist.category.name
+    );
+
+    if (!vote) {
+      return setVotes([...votes, finalist]);
+    }
+
+    if (vote.saved) {
+      return;
+    }
+
+    setVotes(votes.map(v => (v.id === vote.id ? finalist : v)));
   };
 
-  const handleSubmit = e => {
-    // e.preventDefault
+  const handleConfirmVotes = () => {
+    const votesToSave = votes.filter(vote => !vote.saved);
+
+    votesToSave.forEach(async ({ id }) => {
+      const response = await api.post(`votes/${id}`);
+      console.log(response);
+    });
+
+    setVotes(votes.map(vote => ({ ...vote, saved: true })));
   };
 
   return (
@@ -58,7 +88,7 @@ const Votacao = () => {
           }}
         >
           <ShowCategory />
-          comercio
+          Comércio
         </Category>
         <Category
           onClick={() => {
@@ -67,7 +97,7 @@ const Votacao = () => {
           }}
         >
           <ShowCategory />
-          industria
+          Indústria
         </Category>
         <Category
           onClick={() => {
@@ -76,20 +106,23 @@ const Votacao = () => {
           }}
         >
           <ShowCategory />
-          prestacao de servico
+          Prestação de Serviço
         </Category>
       </CategoryContainer>
 
-      <VoteCategory
-        number={number}
-        onConfirm={handleSubmit}
-        pegarVotados={listaVotados}
-        category={category}
-      >
-        <CloseVote onClick={() => setNumber(0)}>
-          <IoIosClose size={50} />
-        </CloseVote>
-      </VoteCategory>
+      {number !== 0 && (
+        <VoteCategory
+          number={number}
+          onConfirm={handleConfirmVotes}
+          pegarVotados={listaVotados}
+          category={category}
+          votes={votes}
+        >
+          <CloseVote onClick={() => setNumber(0)}>
+            <IoIosClose size={50} />
+          </CloseVote>
+        </VoteCategory>
+      )}
     </Container>
   );
 };
