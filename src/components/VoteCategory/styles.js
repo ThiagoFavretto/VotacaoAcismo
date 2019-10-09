@@ -1,4 +1,4 @@
-import styled, { keyframes } from "styled-components";
+import styled, { keyframes } from 'styled-components';
 
 const SlideBottom = keyframes`
 0% {
@@ -15,13 +15,15 @@ export const Container = styled.div`
   bottom: 0;
   left: 0;
   right: 0;
-  background: #d9e1e3;
+  background: #eee;
   animation: ${SlideBottom} 0.3s linear 0s;
   border-radius: 20px 20px 0 0;
 `;
 export const Header = styled.div`
   display: flex;
-  height: 8vh;
+  height: 55px;
+  padding: 0 20px;
+  align-items: center;
 `;
 
 export const Close = styled.div`
@@ -29,5 +31,5 @@ export const Close = styled.div`
   right: 0;
 `;
 export const Title = styled.div`
-  line-height: 3;
+  font-size: 18px;
 `;

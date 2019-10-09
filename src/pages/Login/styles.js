@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import trofeu from "../../assets/trofeu.png";
-import logo2 from "../../assets/logo2.png";
+import styled from 'styled-components';
+import trofeu from '../../assets/trofeu.png';
+import logo2 from '../../assets/logo2.png';
 
 export const Container = styled.div`
   width: 100%;
@@ -10,6 +10,7 @@ export const Container = styled.div`
   background-image: url(${trofeu});
   background-size: 100% 100%;
   background-repeat: no-repeat;
+  padding-bottom: 20px;
 
   @media (min-width: 600px) {
     background-image: url(${logo2});
@@ -21,7 +22,8 @@ export const FormCode = styled.form`
   display: flex;
   flex-direction: column;
   padding: 0 20px;
-  margin-top: 480px;
+  margin-top: auto;
+
   @media (min-width: 500px) {
     max-width: 400px;
     padding: 0;
@@ -59,4 +61,17 @@ export const ButtonCode = styled.button`
     top: 3px;
     box-shadow: none;
   }
+`;
+
+export const Error = styled.div`
+  margin-top: 10px;
+  border-radius: 8px;
+  background: #fff;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  color: red;
+  padding: 7px 5px;
+  min-height: 50px;
 `;
