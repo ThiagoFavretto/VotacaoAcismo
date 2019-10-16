@@ -4,14 +4,14 @@ import { Container, EnterCode, FormCode, ButtonCode, Error } from './styles';
 import api from '../../services/api';
 
 const Login = ({ history }) => {
-  const [code, setCode] = useState('');
+  const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
   const handleSubmit = async e => {
     e.preventDefault();
 
-    if (!code) {
+    if (!id) {
       return setError('O código não pode estar vazio');
     }
 
@@ -51,8 +51,8 @@ const Login = ({ history }) => {
       <FormCode>
         <EnterCode
           placeholder="Código"
-          value={code}
-          onChange={e => setCode(e.target.value)}
+          value={id}
+          onChange={e => setId(e.target.value)}
         />
         <EnterCode
           placeholder="Senha"
