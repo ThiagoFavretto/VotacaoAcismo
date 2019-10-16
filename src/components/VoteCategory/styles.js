@@ -10,7 +10,7 @@ const SlideBottom = keyframes`
 }
 `;
 export const Container = styled.div`
-  height: 90%;
+  height: 95%;
   position: absolute;
   bottom: 0;
   left: 0;

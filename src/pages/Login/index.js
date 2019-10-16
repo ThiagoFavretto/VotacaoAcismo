@@ -4,15 +4,15 @@ import { Container, EnterCode, FormCode, ButtonCode, Error } from './styles';
 import api from '../../services/api';
 
 const Login = ({ history }) => {
-  const [cnpj, setCnpj] = useState('');
+  const [code, setCode] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
   const handleSubmit = async e => {
     e.preventDefault();
 
-    if (!cnpj) {
-      return setError('O CNPJ não pode estar vazio');
+    if (!code) {
+      return setError('O código não pode estar vazio');
     }
 
     if (!password) {
@@ -21,7 +21,7 @@ const Login = ({ history }) => {
 
     try {
       const res = await api.post('sessions', {
-        cnpj,
+        code,
         password,
       });
 
@@ -33,19 +33,26 @@ const Login = ({ history }) => {
 
       history.push(`/votacao`);
     } catch (e) {
-      console.log(e);
-      const { error } = e.response.data;
-      setError(error);
+      if (e.response !== undefined) {
+        setError(e.response.data.error);
+      } else {
+        setError('Ocorreu um erro de conexão com o servidor');
+      }
     }
   };
 
   return (
     <Container>
+      {error && (
+        <Error>
+          <p>{error}</p>
+        </Error>
+      )}
       <FormCode>
         <EnterCode
-          placeholder="CNPJ"
-          value={cnpj}
-          onChange={e => setCnpj(e.target.value)}
+          placeholder="Código"
+          value={code}
+          onChange={e => setCode(e.target.value)}
         />
         <EnterCode
           placeholder="Senha"
@@ -53,12 +60,6 @@ const Login = ({ history }) => {
           value={password}
           onChange={e => setPassword(e.target.value)}
         />
-
-        {error && (
-          <Error>
-            <p>{error}</p>
-          </Error>
-        )}
         <ButtonCode type="submit" onClick={handleSubmit}>
           ENTRAR
         </ButtonCode>

@@ -1,12 +1,18 @@
 import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
-  height: 82vh;
+  height: 75vh;
   background: white;
   display: flex;
   flex-direction: column;
   padding: 20px;
   overflow: auto;
+  @media (max-height: 600px) {
+    height: 68vh;
+  }
+  @media (max-height: 410px) {
+    height: 60vh;
+  }
 `;
 
 export const Card = styled.div`
@@ -15,7 +21,6 @@ export const Card = styled.div`
   padding: 20px;
   display: flex;
   border-radius: 4px;
-  flex-direction: column;
   cursor: pointer;
 
   & + div {
@@ -41,9 +46,10 @@ export const Vote = styled.button`
 `;
 
 export const Content = styled.div`
-  width: 100%;
-  padding: 5px 0;
+  width: 65%;
+  padding: 5px;
   display: flex;
+  flex-direction: column;
   align-items: center;
 `;
 
@@ -53,4 +59,23 @@ export const Title = styled.div`
   width: 100%;
   font-size: 24px;
   padding: 5px;
+`;
+
+export const Foto = styled.div`
+  width: 35%;
+  height: 120px;
+  background-position: center;
+
+  ${props =>
+    css`
+      background-image: url(${props.data});
+      background-size: 120px;
+      background-repeat: no-repeat;
+    `}
+`;
+
+export const Name = styled.div`
+  margin-top: 20px;
+  width: 100%;
+  padding: 0 0 0 15px;
 `;

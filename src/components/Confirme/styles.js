@@ -1,17 +1,33 @@
 import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
+  height: 75vh;
+  background: white;
   display: flex;
-  height: 82vh;
   flex-direction: column;
-  padding: 20px;
-  background: #fff;
+  padding: 10px;
+  overflow: auto;
+  @media (max-height: 600px) {
+    height: 68vh;
+  }
+  @media (max-height: 410px) {
+    height: 60vh;
+  }
+`;
+
+export const ButtonContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 50px;
 `;
 
 export const ConfimerButton = styled.button`
   height: 50px;
+  width: 80%;
   border: 0;
-  margin-top: auto;
+  margin-top: 20px;
   font-weight: bold;
   cursor: pointer;
   background: #2e5441;
@@ -19,14 +35,12 @@ export const ConfimerButton = styled.button`
   font-size: 16px;
   border-radius: 10px;
   box-shadow: 4px 4px rgba(0, 20, 0, 0.3);
-
   ${props =>
     !props.alreadyVotted &&
     css`
       &:hover {
         background: #314d3f;
       }
-
       &:active {
         position: relative;
         top: 3px;
@@ -39,20 +53,38 @@ export const Card = styled.div`
   width: 100%;
   background: green;
   color: #fff;
-  padding: 20px;
+  padding: 10px;
   display: flex;
   border-radius: 4px;
-  flex-direction: column;
   cursor: pointer;
-
   & + div {
     margin-top: 16px;
   }
 `;
 
 export const Content = styled.div`
-  width: 100%;
-  padding: 5px 0;
+  width: 65%;
+  padding: 5px;
   display: flex;
+  flex-direction: column;
   align-items: center;
+`;
+
+export const Foto = styled.div`
+  width: 40%;
+  max-width: 200px;
+  height: 140px;
+  background-position: center;
+
+  ${props =>
+    css`
+      background-image: url(${props.data});
+      background-size: 100% 100%;
+    `}
+`;
+
+export const Name = styled.div`
+  margin-top: 20px;
+  width: 100%;
+  padding: 0 0 0 15px;
 `;

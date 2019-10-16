@@ -6,6 +6,8 @@ import {
   CategoryContainer,
   ShowCategory,
   CloseVote,
+  Error,
+  SaveAll,
 } from './styles';
 
 import api from '../../services/api';
@@ -19,6 +21,7 @@ const Votacao = () => {
   const [number, setNumber] = useState(0);
   const [category, setCategory] = useState([]);
   const [votes, setVotes] = useState([]);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const votes = localStorage.getItem('votes');
@@ -34,16 +37,20 @@ const Votacao = () => {
 
   useEffect(() => {
     const listar = async () => {
-      const res = await api.get('finalists');
+      try {
+        const res = await api.get('finalists');
 
-      const { finalists } = res.data;
+        const { finalists } = res.data;
 
-      finalists.forEach(itens => {
-        const { name } = itens.category;
-        if (name === 'Comércio') comercio.push(itens);
-        if (name === 'Indústria') industria.push(itens);
-        if (name === 'Prestação de Serviço') prestacaoDeServico.push(itens);
-      });
+        finalists.forEach(itens => {
+          const { name } = itens.category;
+          if (name === 'Comércio') comercio.push(itens);
+          if (name === 'Indústria') industria.push(itens);
+          if (name === 'Prestação de Serviço') prestacaoDeServico.push(itens);
+        });
+      } catch (e) {
+        setError('Ocorreu um erro inesperado ao obter os finalistas');
+      }
     };
 
     listar();
@@ -55,7 +62,6 @@ const Votacao = () => {
         category.size === finalist.category.size &&
         category.name === finalist.category.name
     );
-
     if (!vote) {
       return setVotes([...votes, finalist]);
     }
@@ -67,19 +73,30 @@ const Votacao = () => {
     setVotes(votes.map(v => (v.id === vote.id ? finalist : v)));
   };
 
-  const handleConfirmVotes = () => {
-    const votesToSave = votes.filter(vote => !vote.saved);
-
-    votesToSave.forEach(async ({ id }) => {
-      const response = await api.post(`votes/${id}`);
-      console.log(response);
-    });
-
+  const confirmeVotado = () => {
     setVotes(votes.map(vote => ({ ...vote, saved: true })));
+    console.log(votes);
+  };
+
+  const saveAllVotes = () => {
+    const votesToSave = votes.filter(vote => vote.saved);
+    if (votesToSave.length === 9) {
+      votesToSave.forEach(async ({ id }) => {
+        try {
+          const response = await api.post(`votes/${id}`);
+          console.log(response);
+        } catch (e) {
+          setError(e.response.data.error);
+        }
+      });
+    } else {
+      setError('Confirme seus votos altes de finalizar');
+    }
   };
 
   return (
     <Container>
+      {error && <Error>{error}</Error>}
       <CategoryContainer>
         <Category
           onClick={() => {
@@ -113,16 +130,17 @@ const Votacao = () => {
       {number !== 0 && (
         <VoteCategory
           number={number}
-          onConfirm={handleConfirmVotes}
           pegarVotados={listaVotados}
           category={category}
           votes={votes}
+          onConfirm={confirmeVotado}
         >
           <CloseVote onClick={() => setNumber(0)}>
             <IoIosClose size={50} />
           </CloseVote>
         </VoteCategory>
       )}
+      {votes.length === 9 && <SaveAll onClick={saveAllVotes}>Votar</SaveAll>}
     </Container>
   );
 };

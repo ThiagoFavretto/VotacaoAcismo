@@ -11,7 +11,6 @@ export const Container = styled.div`
   background-size: 100% 100%;
   background-repeat: no-repeat;
   padding-bottom: 20px;
-
   @media (min-width: 600px) {
     background-image: url(${logo2});
   }
@@ -23,7 +22,6 @@ export const FormCode = styled.form`
   flex-direction: column;
   padding: 0 20px;
   margin-top: auto;
-
   @media (min-width: 500px) {
     max-width: 400px;
     padding: 0;
@@ -51,11 +49,9 @@ export const ButtonCode = styled.button`
   font-size: 18px;
   border-radius: 10px;
   box-shadow: 4px 4px rgba(0, 20, 0, 0.3);
-
   &:hover {
     background: #314d3f;
   }
-
   &:active {
     position: relative;
     top: 3px;
@@ -64,14 +60,17 @@ export const ButtonCode = styled.button`
 `;
 
 export const Error = styled.div`
+  width: 100%;
   margin-top: 10px;
-  border-radius: 8px;
-  background: #fff;
+  background: #a1a1a1;
   text-align: center;
   align-items: center;
   justify-content: center;
   display: flex;
   color: red;
   padding: 7px 5px;
+  font-weight: bold;
   min-height: 50px;
+  position: absolute;
+  top: 0;
 `;
