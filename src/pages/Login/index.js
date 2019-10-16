@@ -21,7 +21,7 @@ const Login = ({ history }) => {
 
     try {
       const res = await api.post('sessions', {
-        code,
+        id,
         password,
       });
 
