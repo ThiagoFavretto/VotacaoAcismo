@@ -33,6 +33,8 @@ const Login = ({ history }) => {
 
       history.push(`/votacao`);
     } catch (e) {
+      console.log('a');
+      console.log(e);
       if (e.response !== undefined) {
         setError(e.response.data.error);
       } else {

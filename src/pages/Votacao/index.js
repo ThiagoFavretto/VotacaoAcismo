@@ -86,6 +86,8 @@ const Votacao = () => {
           const response = await api.post(`votes/${id}`);
           console.log(response);
         } catch (e) {
+          console.log('b');
+          console.log(e);
           setError(e.response.data.error);
         }
       });
