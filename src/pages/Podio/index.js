@@ -21,7 +21,7 @@ const Podio = () => {
     <Container>
       {podio.map((finalist, i) => (
         <Card key={i}>
-          <Title>{finalist.category.name}</Title>
+          1 2 3<Title>{finalist.category.name}</Title>
           <Size>{finalist.category.size} porte</Size>
           {finalist.ranking.map((iten, i) => (
             <Content key={i}>{iten.owner_name}</Content>

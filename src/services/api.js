@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://167.99.155.29',
+  baseURL: 'https://monitoramento.mkanet.com.br/acismo',
 });
 
 api.interceptors.request.use(config => {
