@@ -52,6 +52,8 @@ export const Card = styled.div`
   display: flex;
   border-radius: 4px;
   cursor: pointer;
+  height: 160px;
+
   & + div {
     margin-top: 16px;
   }
@@ -66,9 +68,9 @@ export const Content = styled.div`
 `;
 
 export const Foto = styled.div`
-  width: 40%;
-  max-width: 200px;
-  height: 140px;
+  width: 120px;
+  height: 120px;
+  border-radius: 8px;
   background-position: center;
 
   ${props =>
