@@ -6,17 +6,8 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   padding: 10px;
-  overflow: auto;
-  @media (max-height: 600px) {
-    height: 68vh;
-  }
-  @media (max-height: 410px) {
-    height: 60vh;
-  }
-
-  @media (max-height: 300px) {
-    height: 50vh;
-  }
+  padding-bottom: 60px;
+  overflow-y: scroll;
 `;
 
 export const ButtonContainer = styled.div`

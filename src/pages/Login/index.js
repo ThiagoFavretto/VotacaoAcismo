@@ -31,6 +31,11 @@ const Login = ({ history }) => {
 
       api.defaults.headers.authorization = `Bearer ${token}`;
 
+      const adminId = 1000;
+      if (Number(id) === adminId) {
+        return history.push(`/votacao/resultado`);
+      }
+
       history.push(`/votacao`);
     } catch (e) {
       if (e.response !== undefined) {

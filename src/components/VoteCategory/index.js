@@ -15,7 +15,9 @@ const VoteCategory = ({
   const categoryName = useMemo(() => {
     if (number === 1) {
       return 'Comércio';
-    } else if (number === 2) {
+    }
+
+    if (number === 2) {
       return 'Indústria';
     }
 

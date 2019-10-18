@@ -6,13 +6,8 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   padding: 20px;
-  overflow: auto;
-  @media (max-height: 600px) {
-    height: 68vh;
-  }
-  @media (max-height: 410px) {
-    height: 60vh;
-  }
+  padding-bottom: 50px;
+  overflow-y: scroll;
 `;
 
 export const Card = styled.div`
