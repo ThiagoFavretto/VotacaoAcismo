@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import background from '../../assets/background.png';
 
 export const Container = styled.div`
@@ -14,11 +14,12 @@ export const Container = styled.div`
 `;
 
 export const CategoryContainer = styled.div`
-  margin-top: 150px;
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 `;
 
 export const Category = styled.div`

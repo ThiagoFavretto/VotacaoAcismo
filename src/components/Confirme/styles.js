@@ -13,6 +13,10 @@ export const Container = styled.div`
   @media (max-height: 410px) {
     height: 60vh;
   }
+
+  @media (max-height: 300px) {
+    height: 50vh;
+  }
 `;
 
 export const ButtonContainer = styled.div`

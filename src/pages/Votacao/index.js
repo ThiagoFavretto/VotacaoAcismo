@@ -83,6 +83,7 @@ const Votacao = () => {
 
   const confirmeVotado = () => {
     setVotes(votes.map(vote => ({ ...vote, saved: true })));
+    setNumber(0);
   };
 
   const saveAllVotes = () => {
