@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import background from '../../assets/background.png';
 
 export const Container = styled.div`
@@ -63,17 +63,27 @@ export const Error = styled.div`
   top: 0;
 `;
 
-export const SaveAll = styled.button`
-  width: 80%;
+export const ConfimerButton = styled.button`
   height: 50px;
-  background: green;
-  border: none;
-  color: white;
-  border-radius: 5px;
-  padding: 20px;
+  width: 80%;
+  border: 0;
+  margin-top: 20px;
   font-weight: bold;
-  margin-top: 100px;
-  @media (max-height: 600px) {
-    margin-top: 60px;
-  }
+  cursor: pointer;
+  background: #2e5441;
+  color: white;
+  font-size: 16px;
+  border-radius: 10px;
+  box-shadow: 4px 4px rgba(0, 20, 0, 0.3);
+  opacity: ${props => (props.disabled ? 0.7 : 1)};
+`;
+
+export const ButtonContainer = styled.div`
+  margin-top: auto;
+  margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 50px;
 `;

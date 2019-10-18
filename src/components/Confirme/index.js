@@ -88,7 +88,7 @@ const Confirme = ({ onConfirm, votesCategory }) => {
           onClick={alreadyVotted ? () => {} : onConfirm}
           alreadyVotted={alreadyVotted}
         >
-          {alreadyVotted ? 'VOTOS CONFIRMADOS' : 'CONFIRMAR'}
+          {alreadyVotted ? 'VOTOS CONFIRMADOS' : 'CONFIRMAR VOTOS'}
         </ConfimerButton>
       </ButtonContainer>
     </Container>
