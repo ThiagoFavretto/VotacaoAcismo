@@ -7,7 +7,8 @@ import {
   ShowCategory,
   CloseVote,
   Error,
-  SaveAll,
+  ConfimerButton,
+  ButtonContainer,
 } from './styles';
 
 import api from '../../services/api';
@@ -15,9 +16,9 @@ import api from '../../services/api';
 import VoteCategory from '../../components/VoteCategory/index';
 
 const Votacao = () => {
-  const comercio = [];
-  const industria = [];
-  const prestacaoDeServico = [];
+  const [comercio, setComercio] = useState([]);
+  const [industria, setIndustria] = useState([]);
+  const [prestacaoDeServico, setPrestacaodeServico] = useState([]);
   const [number, setNumber] = useState(0);
   const [category, setCategory] = useState([]);
   const [votes, setVotes] = useState([]);
@@ -42,19 +43,26 @@ const Votacao = () => {
 
         const { finalists } = res.data;
 
-        finalists.forEach(itens => {
-          const { name } = itens.category;
-          if (name === 'Comércio') comercio.push(itens);
-          if (name === 'Indústria') industria.push(itens);
-          if (name === 'Prestação de Serviço') prestacaoDeServico.push(itens);
-        });
+        setComercio(
+          finalists.filter(({ category }) => category.name === 'Comércio')
+        );
+
+        setIndustria(
+          finalists.filter(({ category }) => category.name === 'Indústria')
+        );
+
+        setPrestacaodeServico(
+          finalists.filter(
+            ({ category }) => category.name === 'Prestação de Serviço'
+          )
+        );
       } catch (e) {
-        setError('Ocorreu um erro inesperado ao obter os finalistas');
+        setError('Ocorreu algum problema ao buscar os finalistas');
       }
     };
 
     listar();
-  }, [comercio, industria, number, prestacaoDeServico]);
+  }, []);
 
   const listaVotados = ({ finalist }) => {
     const vote = votes.find(
@@ -75,24 +83,21 @@ const Votacao = () => {
 
   const confirmeVotado = () => {
     setVotes(votes.map(vote => ({ ...vote, saved: true })));
-    console.log(votes);
   };
 
   const saveAllVotes = () => {
     const votesToSave = votes.filter(vote => vote.saved);
+
     if (votesToSave.length === 9) {
       votesToSave.forEach(async ({ id }) => {
         try {
-          const response = await api.post(`votes/${id}`);
-          console.log(response);
+          await api.post(`votes/${id}`);
         } catch (e) {
-          console.log('b');
-          console.log(e);
           setError(e.response.data.error);
         }
       });
     } else {
-      setError('Confirme seus votos altes de finalizar');
+      setError('Confirme todos os votos antes de finalizar a votação');
     }
   };
 
@@ -100,33 +105,39 @@ const Votacao = () => {
     <Container>
       {error && <Error>{error}</Error>}
       <CategoryContainer>
-        <Category
-          onClick={() => {
-            setNumber(1);
-            setCategory(comercio);
-          }}
-        >
-          <ShowCategory />
-          Comércio
-        </Category>
-        <Category
-          onClick={() => {
-            setNumber(2);
-            setCategory(industria);
-          }}
-        >
-          <ShowCategory />
-          Indústria
-        </Category>
-        <Category
-          onClick={() => {
-            setNumber(3);
-            setCategory(prestacaoDeServico);
-          }}
-        >
-          <ShowCategory />
-          Prestação de Serviço
-        </Category>
+        {comercio.length > 0 && (
+          <Category
+            onClick={() => {
+              setNumber(1);
+              setCategory(comercio);
+            }}
+          >
+            <ShowCategory />
+            Comércio
+          </Category>
+        )}
+        {industria.length > 0 && (
+          <Category
+            onClick={() => {
+              setNumber(2);
+              setCategory(industria);
+            }}
+          >
+            <ShowCategory />
+            Indústria
+          </Category>
+        )}
+        {prestacaoDeServico.length > 0 && (
+          <Category
+            onClick={() => {
+              setNumber(3);
+              setCategory(prestacaoDeServico);
+            }}
+          >
+            <ShowCategory />
+            Prestação de Serviço
+          </Category>
+        )}
       </CategoryContainer>
 
       {number !== 0 && (
@@ -142,7 +153,14 @@ const Votacao = () => {
           </CloseVote>
         </VoteCategory>
       )}
-      {votes.length === 9 && <SaveAll onClick={saveAllVotes}>Votar</SaveAll>}
+
+      {number === 0 && (
+        <ButtonContainer>
+          <ConfimerButton onClick={saveAllVotes} disabled={votes.length !== 9}>
+            FINALIZAR VOTAÇÃO
+          </ConfimerButton>
+        </ButtonContainer>
+      )}
     </Container>
   );
 };

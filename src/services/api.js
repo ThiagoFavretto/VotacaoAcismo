@@ -1,13 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: '/vota/',
-  // [[redirects]]
-  // from = "/vota/*"
-  // to = "https://acad.unoesc.edu.br/:splat"
-  // status = 200
-  // force = true
-  // headers = {X-From = "Netlify"}
+  baseURL: 'https://destaque2019.acismo.com.br/vota/',
 });
 
 api.interceptors.request.use(config => {

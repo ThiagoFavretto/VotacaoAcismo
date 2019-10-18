@@ -9,23 +9,33 @@ const Podio = () => {
   useEffect(() => {
     const dados = async e => {
       try {
-        const res = await api.get('podiums', {});
+        const res = await api.get('podiums');
         setPodio(res.data.podium);
-      } catch (e) {}
+      } catch (e) {
+        console.log(e);
+      }
     };
     dados();
   }, []);
 
-  console.log(podio);
   return (
     <Container>
       {podio.map((finalist, i) => (
         <Card key={i}>
-          1 2 3<Title>{finalist.category.name}</Title>
-          <Size>{finalist.category.size} porte</Size>
-          {finalist.ranking.map((iten, i) => (
-            <Content key={i}>{iten.owner_name}</Content>
-          ))}
+          <div>
+            <Title>{finalist.category.name}</Title>
+            <Size>{finalist.category.size} porte</Size>
+          </div>
+
+          <span>
+            <p>Classificação</p>
+            {finalist.ranking.map((iten, i) => (
+              <>
+                <Content key={i}>{iten.owner_name}</Content>
+                <p>{iten.total} votos</p>
+              </>
+            ))}
+          </span>
         </Card>
       ))}
     </Container>
