@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { IoIosClose } from 'react-icons/io';
 import {
   Container,
@@ -97,18 +97,27 @@ const Votacao = () => {
       votesToSave.forEach(async ({ id }) => {
         try {
           await api.post(`votes/${id}`);
+
+          setVotes(votes =>
+            votes.map(vote =>
+              vote.id === id ? { ...vote, finish: true } : vote
+            )
+          );
         } catch (e) {
-          setError(e.response.data.error);
+          setError(error => [...error, e.response.data.error]);
         }
       });
-    } else {
-      setError('Confirme todos os votos antes de finalizar a votação');
     }
   };
 
+  const vottedFinish = useMemo(
+    () => votes.filter(vote => vote.finish).length === 9,
+    [votes]
+  );
+
   return (
     <Container>
-      {error && <Error>{error}</Error>}
+      {error && error.map(e => <Error>{e}</Error>)}
       <CategoryContainer>
         {comercio.length > 0 && (
           <Category
@@ -190,8 +199,11 @@ const Votacao = () => {
 
       {number === 0 && (
         <ButtonContainer>
-          <ConfimerButton onClick={saveAllVotes} disabled={votes.length !== 9}>
-            FINALIZAR VOTAÇÃO
+          <ConfimerButton
+            onClick={saveAllVotes}
+            disabled={votes.length !== 9 || vottedFinish}
+          >
+            {vottedFinish ? 'SEUS VOTOS FORAM COMPUTADOS' : 'FINALIZAR VOTAÇÃO'}
           </ConfimerButton>
         </ButtonContainer>
       )}
