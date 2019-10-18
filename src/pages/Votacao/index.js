@@ -26,11 +26,10 @@ const Votacao = () => {
   const [error, setError] = useState('');
 
   useEffect(() => {
-
     const votes = localStorage.getItem(
       `votes_${localStorage.getItem('companyId')}`
     );
-    
+
     if (votes) {
       const votes_ = JSON.parse(votes);
       setVotes(votes_);
@@ -209,7 +208,9 @@ const Votacao = () => {
         <ButtonContainer>
           <ConfimerButton
             onClick={saveAllVotes}
-            disabled={votes.length !== 9 || vottedFinish}
+            disabled={
+              votes.filter(vote => vote.saved).length !== 9 || vottedFinish
+            }
           >
             {vottedFinish ? 'SEUS VOTOS FORAM COMPUTADOS' : 'FINALIZAR VOTAÇÃO'}
           </ConfimerButton>
