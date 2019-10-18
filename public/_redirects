@@ -1,2 +1,8 @@
 /*  /index.html  200
-/api/*  http://167.99.155.29/:splat  200
+
+[[redirects]]
+  from = "/api"
+  to = "http://167.99.155.2"
+  status = 200
+  force = true
+  headers = {X-From = "Netlify"}
