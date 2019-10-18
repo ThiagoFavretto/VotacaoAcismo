@@ -21,6 +21,7 @@ const Votacao = () => {
   const [prestacaoDeServico, setPrestacaodeServico] = useState([]);
   const [number, setNumber] = useState(0);
   const [category, setCategory] = useState([]);
+  const [categoryVotted, setCategoryVotted] = useState([]);
   const [votes, setVotes] = useState([]);
   const [error, setError] = useState('');
 
@@ -28,7 +29,9 @@ const Votacao = () => {
     const votes = localStorage.getItem('votes');
 
     if (votes) {
-      setVotes(JSON.parse(votes));
+      const votes_ = JSON.parse(votes);
+      setVotes(votes_);
+      setCategoryVotted(votes_.map(vote => vote.category.name));
     }
   }, []);
 
@@ -83,6 +86,7 @@ const Votacao = () => {
 
   const confirmeVotado = () => {
     setVotes(votes.map(vote => ({ ...vote, saved: true })));
+    setCategoryVotted(votes.map(vote => vote.category.name));
     setNumber(0);
   };
 
@@ -113,10 +117,20 @@ const Votacao = () => {
               setCategory(comercio);
             }}
           >
-            <ShowCategory />
-            Comércio
+            {categoryVotted.indexOf('Comércio') !== -1 ? (
+              <>
+                Comércio
+                <p>VOTOS CONFIRMADOS</p>
+              </>
+            ) : (
+              <>
+                <ShowCategory />
+                Comércio
+              </>
+            )}
           </Category>
         )}
+
         {industria.length > 0 && (
           <Category
             onClick={() => {
@@ -124,10 +138,20 @@ const Votacao = () => {
               setCategory(industria);
             }}
           >
-            <ShowCategory />
-            Indústria
+            {categoryVotted.indexOf('Indústria') !== -1 ? (
+              <>
+                Indústria
+                <p>VOTOS CONFIRMADOS</p>
+              </>
+            ) : (
+              <>
+                <ShowCategory />
+                Indústria
+              </>
+            )}
           </Category>
         )}
+
         {prestacaoDeServico.length > 0 && (
           <Category
             onClick={() => {
@@ -135,8 +159,17 @@ const Votacao = () => {
               setCategory(prestacaoDeServico);
             }}
           >
-            <ShowCategory />
-            Prestação de Serviço
+            {categoryVotted.indexOf('Prestação de Serviço') !== -1 ? (
+              <>
+                Prestação de Serviço
+                <p>VOTOS CONFIRMADOS</p>
+              </>
+            ) : (
+              <>
+                <ShowCategory />
+                Prestação de Serviço
+              </>
+            )}
           </Category>
         )}
       </CategoryContainer>

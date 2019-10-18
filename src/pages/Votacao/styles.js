@@ -31,6 +31,14 @@ export const Category = styled.div`
   display: flex;
   align-items: center;
   padding: 5px;
+
+  p {
+    white-space: nowrap;
+    font-size: 12px;
+    margin-left: auto;
+    color: green;
+    font-weight: bold;
+  }
 `;
 
 export const ShowCategory = styled.div`
