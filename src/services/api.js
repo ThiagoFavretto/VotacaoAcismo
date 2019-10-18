@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: '/api/',
+  baseURL: '/vota/',
   // [[redirects]]
   // from = "/vota/*"
   // to = "https://acad.unoesc.edu.br/:splat"
