@@ -52,6 +52,8 @@ export const Card = styled.div`
   display: flex;
   border-radius: 4px;
   cursor: pointer;
+  height: 160px;
+
   & + div {
     margin-top: 16px;
   }
