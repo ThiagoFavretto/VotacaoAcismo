@@ -1,8 +1,6 @@
 [[redirects]]
   from = "https://competent-sinoussi-b9d83f.netlify.com/api/*"
-  to = "http://167.99.155.29/*"
+  to = "https://acad.unoesc.edu.br"
   status = 301
   force = true
   headers = {X-From = "Netlify"}
-s
-  
