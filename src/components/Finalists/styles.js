@@ -17,6 +17,7 @@ export const Card = styled.div`
   display: flex;
   border-radius: 4px;
   cursor: pointer;
+  align-items: center;
 
   & + div {
     margin-top: 16px;
@@ -57,8 +58,9 @@ export const Title = styled.div`
 `;
 
 export const Foto = styled.div`
-  width: 35%;
+  width: 120px;
   height: 120px;
+  border-radius: 8px;
   background-position: center;
 
   ${props =>
@@ -70,7 +72,10 @@ export const Foto = styled.div`
 `;
 
 export const Name = styled.div`
-  margin-top: 20px;
   width: 100%;
   padding: 0 0 0 15px;
+
+  & + div {
+    margin-top: 20px;
+  }
 `;

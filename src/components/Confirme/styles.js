@@ -66,9 +66,9 @@ export const Content = styled.div`
 `;
 
 export const Foto = styled.div`
-  width: 40%;
-  max-width: 200px;
-  height: 140px;
+  width: 120px;
+  height: 120px;
+  border-radius: 8px;
   background-position: center;
 
   ${props =>
