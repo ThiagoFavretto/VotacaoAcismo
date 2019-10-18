@@ -18,7 +18,7 @@ export const Card = styled.div`
   border-radius: 4px;
   cursor: pointer;
   align-items: center;
-  height: 160px;
+  /* height: 160px; */
 
   & + div {
     margin-top: 16px;
