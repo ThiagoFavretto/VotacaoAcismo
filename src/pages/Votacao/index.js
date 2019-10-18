@@ -26,10 +26,11 @@ const Votacao = () => {
   const [error, setError] = useState('');
 
   useEffect(() => {
+
     const votes = localStorage.getItem(
       `votes_${localStorage.getItem('companyId')}`
     );
-
+    
     if (votes) {
       const votes_ = JSON.parse(votes);
       setVotes(votes_);
