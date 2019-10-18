@@ -42,7 +42,7 @@ const Login = ({ history }) => {
       }
     }
   };
-// /*  /index.html  200
+
   return (
     <Container>
       {error && (
