@@ -1,8 +1,8 @@
 [[redirects]]
-  from = "/api/*"
-  to = "http://167.99.155.29"
+  from = "https://competent-sinoussi-b9d83f.netlify.com/api/*"
+  to = "http://167.99.155.29/*"
   status = 301
   force = true
   headers = {X-From = "Netlify"}
-
+s
   
