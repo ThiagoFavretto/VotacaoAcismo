@@ -26,17 +26,24 @@ const Votacao = () => {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    const votes = localStorage.getItem('votes');
+    const votes = localStorage.getItem(
+      `votes_${localStorage.getItem('companyId')}`
+    );
 
     if (votes) {
       const votes_ = JSON.parse(votes);
       setVotes(votes_);
-      setCategoryVotted(votes_.map(vote => vote.category.name));
+      setCategoryVotted(
+        votes_.filter(vote => vote.saved).map(vote => vote.category.name)
+      );
     }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('votes', JSON.stringify(votes));
+    localStorage.setItem(
+      `votes_${localStorage.getItem('companyId')}`,
+      JSON.stringify(votes)
+    );
   }, [votes]);
 
   useEffect(() => {

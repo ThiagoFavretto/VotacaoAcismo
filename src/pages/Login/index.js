@@ -25,9 +25,10 @@ const Login = ({ history }) => {
         password,
       });
 
-      const { token } = res.data;
+      const { token, company } = res.data;
 
       localStorage.setItem('token', token);
+      localStorage.setItem('companyId', company.id);
 
       api.defaults.headers.authorization = `Bearer ${token}`;
 

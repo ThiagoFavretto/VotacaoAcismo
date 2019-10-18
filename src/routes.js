@@ -17,7 +17,7 @@ const Routes = () => {
         }
       />
       <Route
-        path="/resultado"
+        path="/votacao/resultado"
         exact
         component={() =>
           localStorage.getItem('token') ? <Podio /> : <Redirect to="/" />
