@@ -1,6 +1,1 @@
-[[redirects]]
-  from = "/vota/*"
-  to = "https://acad.unoesc.edu.br/:splat"
-  status = 200
-  force = true
-  headers = {X-From = "Netlify"}
+/cuties            https://www.petsofnetlify.com
