@@ -27,7 +27,6 @@ const Votacao = () => {
 
   useEffect(() => {
     const votes = localStorage.getItem('votes');
-
     if (votes) {
       const votes_ = JSON.parse(votes);
       setVotes(votes_);
