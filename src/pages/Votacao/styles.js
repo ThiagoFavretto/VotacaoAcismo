@@ -96,3 +96,8 @@ export const ButtonContainer = styled.div`
   width: 100%;
   height: 50px;
 `;
+
+export const Final = styled.div`
+  background: #eee;
+  width: 60px;
+`;

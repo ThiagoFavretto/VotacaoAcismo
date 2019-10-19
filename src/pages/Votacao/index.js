@@ -9,6 +9,7 @@ import {
   Error,
   ConfimerButton,
   ButtonContainer,
+  Final,
 } from './styles';
 
 import api from '../../services/api';
@@ -24,7 +25,7 @@ const Votacao = () => {
   const [categoryVotted, setCategoryVotted] = useState([]);
   const [votes, setVotes] = useState([]);
   const [error, setError] = useState('');
-
+  const [men, setMen] = useState(false);
   useEffect(() => {
     const votes = localStorage.getItem(
       `votes_${localStorage.getItem('companyId')}`
@@ -110,6 +111,7 @@ const Votacao = () => {
               vote.id === id ? { ...vote, finish: true } : vote
             )
           );
+          setMen(true);
         } catch (e) {
           setError(error => [...error, e.response.data.error]);
         }

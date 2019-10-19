@@ -34,7 +34,8 @@ import i24 from '../../assets/fotos/i24.jpg';
 import i25 from '../../assets/fotos/i25.jpg';
 import i26 from '../../assets/fotos/i26.jpg';
 import i27 from '../../assets/fotos/i27.jpg';
-
+import i6 from '../../assets/fotos/6.jpg';
+import i15 from '../../assets/fotos/15.jpg';
 const Confirme = ({ onConfirm, votesCategory }) => {
   const alreadyVotted = useMemo(() => votesCategory.every(vote => vote.saved), [
     votesCategory,
@@ -46,7 +47,7 @@ const Confirme = ({ onConfirm, votesCategory }) => {
     3: i3,
     4: i4,
     5: i5,
-    6: 1,
+    6: i6,
     7: i7,
     8: i8,
     9: i9,
@@ -55,7 +56,7 @@ const Confirme = ({ onConfirm, votesCategory }) => {
     12: i12,
     13: i13,
     14: i14,
-    15: 1,
+    15: i15,
     16: i16,
     17: i17,
     18: i18,
@@ -72,6 +73,14 @@ const Confirme = ({ onConfirm, votesCategory }) => {
 
   return (
     <Container>
+      <ButtonContainer>
+        <ConfimerButton
+          onClick={alreadyVotted ? () => {} : onConfirm}
+          alreadyVotted={alreadyVotted}
+        >
+          {alreadyVotted ? 'VOTOS CONFIRMADOS' : 'CONFIRMAR VOTOS'}
+        </ConfimerButton>
+      </ButtonContainer>
       {votesCategory.map((vote, i) => (
         <Card key={i}>
           <Foto data={imagens[vote.id]}></Foto>
@@ -82,15 +91,6 @@ const Confirme = ({ onConfirm, votesCategory }) => {
           </Content>
         </Card>
       ))}
-
-      <ButtonContainer>
-        <ConfimerButton
-          onClick={alreadyVotted ? () => {} : onConfirm}
-          alreadyVotted={alreadyVotted}
-        >
-          {alreadyVotted ? 'VOTOS CONFIRMADOS' : 'CONFIRMAR VOTOS'}
-        </ConfimerButton>
-      </ButtonContainer>
     </Container>
   );
 };

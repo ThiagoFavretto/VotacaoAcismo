@@ -4,12 +4,13 @@ import { BrowserRouter, Route, Redirect } from 'react-router-dom';
 import Login from './pages/Login';
 import Votacao from './pages/Votacao';
 import Podio from './pages/Podio';
+import End from './pages/End';
 
 const Routes = () => {
   return (
     <BrowserRouter>
-      <Route path="/" exact component={Login} />
-      <Route
+      <Route path="/" component={End} />
+      {/* <Route
         path="/votacao"
         exact
         component={() =>
@@ -23,6 +24,13 @@ const Routes = () => {
           localStorage.getItem('token') ? <Podio /> : <Redirect to="/" />
         }
       />
+      <Route
+        path="/votacao/end"
+        exact
+        component={() =>
+          localStorage.getItem('token') ? <End /> : <Redirect to="/" />
+        }
+      /> */}
     </BrowserRouter>
   );
 };

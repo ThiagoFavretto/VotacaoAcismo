@@ -20,6 +20,7 @@ export const ButtonContainer = styled.div`
 
 export const ConfimerButton = styled.button`
   height: 50px;
+  margin-bottom: 40px;
   width: 80%;
   border: 0;
   margin-top: 20px;
