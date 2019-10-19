@@ -9,14 +9,14 @@ import End from './pages/End';
 const Routes = () => {
   return (
     <BrowserRouter>
-      <Route path="/" component={End} />
+      <Route path="/" exact component={End} />
       {/* <Route
         path="/votacao"
         exact
         component={() =>
           localStorage.getItem('token') ? <Votacao /> : <Redirect to="/" />
         }
-      />
+      /> */}
       <Route
         path="/votacao/resultado"
         exact
@@ -24,7 +24,7 @@ const Routes = () => {
           localStorage.getItem('token') ? <Podio /> : <Redirect to="/" />
         }
       />
-      <Route
+      {/* <Route
         path="/votacao/end"
         exact
         component={() =>
